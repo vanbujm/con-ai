@@ -105,9 +105,12 @@ const main = async () => {
 
   await new Promise((resolve) => fileStream.once("open", resolve))
 
-  await createTrainingData(trainingData, fileStream)
-  fileStream.end()
-  isFinished = true
+  try {
+    await createTrainingData(trainingData, fileStream)
+    isFinished = true
+  } finally {
+    fileStream.end()
+  }
 }
 
 const runMain = async () => {
