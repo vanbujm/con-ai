@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "verbatimModuleSyntax": false,
+    "target": "es2016",
+    "lib": [
+      "es6"
+    ],
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": "build",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "moduleResolution": "nodeNext",
+    "module": "node16",
+    "experimentalDecorators": true,
+    "types": [
+      "jest",
+      "node",
+      "@types/jest"
+    ]
+  }
+}
