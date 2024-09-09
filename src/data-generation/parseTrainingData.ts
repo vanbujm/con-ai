@@ -3,7 +3,16 @@ import { resolve } from "node:path"
 import cliProgress from "cli-progress"
 import chalk from "chalk"
 
-export const parseTrainingData = async () => {
+type TrainingData = { initialPrompt: string; initialResponse: string }
+
+let data: null | TrainingData[] = null
+
+export const parseTrainingData = async (): Promise<TrainingData[]> => {
+  if (data) {
+    console.info(chalk.blue("Using cached training data..."))
+    return data
+  }
+
   console.info(chalk.blue("Parsing initial training data..."))
 
   let numberOfLines = 0
@@ -28,15 +37,9 @@ export const parseTrainingData = async () => {
 
   const trainingDataRaw = await readFile(resolve("src/data-generation/data/train.jsonl"), "utf-8")
 
-  const data = trainingDataRaw
+  data = trainingDataRaw
     .split("\n")
-    .map<
-      | {
-          initialPrompt: string
-          initialResponse: string
-        }
-      | undefined
-    >((line, index, arr) => {
+    .map<TrainingData | undefined>((line, index, arr) => {
       if (!loadingBar.isActive) {
         loadingBar.start(arr.length, 0)
       }

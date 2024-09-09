@@ -123,7 +123,7 @@ const runMain = async () => {
       console.warn(chalk.yellow(`\n${e}`))
     } finally {
       isRunning = false
-      console.info(chalk.blue(`${new Date().toISOString()}: Sleeping for 10 minutes...`))
+      console.info(chalk.blue(`${new Date().toLocaleString()} : Sleeping for 10 minutes...`))
       await sleep(1000 * 60 * 10)
     }
   }
