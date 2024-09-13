@@ -12,7 +12,7 @@ const ACCESS_TOKEN = process.env.HUGGING_FACE_ACCESS_TOKEN
 const inference = new HfInference(ACCESS_TOKEN)
 const MODEL = "mistralai/Mistral-7B-Instruct-v0.1"
 
-export const createTrainingData = async (
+export const createCAITrainingData = async (
   trainingData: {
     initialPrompt: string
     initialResponse: string

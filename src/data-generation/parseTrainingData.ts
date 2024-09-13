@@ -5,12 +5,12 @@ import chalk from "chalk"
 
 type TrainingData = { initialPrompt: string; initialResponse: string }
 
-export const parseTrainingData = async (): Promise<TrainingData[]> => {
+export const parseTrainingData = async (fileName: string): Promise<TrainingData[]> => {
   console.info(chalk.blue("Parsing initial training data..."))
 
   let numberOfLines = 0
   try {
-    const dataFile = await readFile(resolve("data/processed.jsonl"), "utf-8")
+    const dataFile = await readFile(fileName, "utf-8")
     numberOfLines = dataFile.split("\n").length - 1
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {

@@ -3,22 +3,24 @@ import { createWriteStream } from "node:fs"
 import { sleep } from "../util/sleep.js"
 import { parseTrainingData } from "./parseTrainingData.js"
 import chalk from "chalk"
-import { createTrainingData } from "./createTrainingData.js"
+import { createCAITrainingData } from "./createCAITrainingData.js"
 
 let isFinished = false
 
 const main = async () => {
-  const trainingData = await parseTrainingData()
+  const dataFile = resolve("data/processed.jsonl")
+  const trainingData = await parseTrainingData(dataFile)
 
-  const fileStream = createWriteStream(resolve("data/processed.jsonl"), { flags: "a" })
+  const fileStream = createWriteStream(dataFile, { flags: "a" })
 
   await new Promise((resolve) => fileStream.once("open", resolve))
 
   try {
-    await createTrainingData(trainingData, fileStream)
+    await createCAITrainingData(trainingData, fileStream)
     isFinished = true
   } finally {
     fileStream.end()
+    process.exit(0)
   }
 }
 
