@@ -5,11 +5,12 @@ from unsloth import FastMistralModel
 import random
 from trl import SFTTrainer
 from transformers import TrainingArguments
+from huggingface_hub import login
 
 load_dotenv()
 
 HUGGING_FACE_ACCESS_TOKEN = os.getenv('HUGGING_FACE_ACCESS_TOKEN')
-
+login()
 import torch
 
 max_seq_length = 4096  # Can change to whatever number <= 4096
@@ -45,8 +46,8 @@ test_sft = dataset["test_sft"]
 test_sft = test_sft.shuffle(seed=42)
 
 # i choose 50k sample for training and 2k for test
-train_sft_subset = train_sft.select(range(50000))
-test_sft_subset = test_sft.select(range(2000))
+train_sft_subset = train_sft.select(range(150000))
+test_sft_subset = test_sft.select(range(3000))
 
 
 def formatting_func(example):
@@ -79,7 +80,7 @@ argument = TrainingArguments(
     per_device_train_batch_size = 1,
     gradient_accumulation_steps = 4,
     warmup_steps = warmup_steps,
-    max_steps = 120,
+    max_steps = 240,
     learning_rate = learning_rate,
     fp16 = not HAS_BFLOAT16,
     bf16 = HAS_BFLOAT16,
