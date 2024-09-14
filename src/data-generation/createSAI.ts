@@ -18,9 +18,10 @@ const main = async () => {
   try {
     await createSAITrainingData(trainingData, fileStream)
     isFinished = true
-  } finally {
     fileStream.end()
     process.exit(0)
+  } finally {
+    fileStream.end()
   }
 }
 
