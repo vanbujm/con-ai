@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 from datasets import load_dataset
 from unsloth import FastMistralModel
-import random
 from trl import SFTTrainer
 from transformers import TrainingArguments
 from huggingface_hub import login
@@ -60,9 +59,6 @@ def formatting_func(example):
         formatted_messages.append(formatted_message)
 
     return {"text": "\n".join([str(msg) for msg in formatted_messages])}
-
-
-formatted_example = formatting_func(train_sft_subset[0])
 
 train_sft = train_sft_subset.map(formatting_func)
 test_sft = test_sft_subset.map(formatting_func)
