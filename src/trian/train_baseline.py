@@ -101,3 +101,6 @@ trainer = SFTTrainer(
 trainer.train()
 
 trainer.save_model("./ultrachat_baseline")
+
+trainer.push_to_hub("vanbujm/ultrachat_baseline")
+tokenizer.push_to_hub("vanbujm/ultrachat_baseline")

@@ -9,12 +9,12 @@ import json
 import random
 from datasets import Dataset
 from datasets import concatenate_datasets
+import torch
 
 load_dotenv()
 
 HUGGING_FACE_ACCESS_TOKEN = os.getenv('HUGGING_FACE_ACCESS_TOKEN')
 login()
-import torch
 
 max_seq_length = 4096  # Can change to whatever number <= 4096
 dtype = None  # None for auto detection. Float16 for Tesla T4, V100, Bfloat16 for Ampere+
@@ -139,6 +139,9 @@ trainer = SFTTrainer(
     args = argument,
 )
 
-# trainer.train()
+trainer.train()
 
-# trainer.save_model("./ultrachat_baseline")
+trainer.save_model("./ultrachat_cai")
+
+trainer.push_to_hub("vanbujm/ultrachat_cai")
+tokenizer.push_to_hub("vanbujm/ultrachat_cai")
