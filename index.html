@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>My GitHub Pages Blog</title>
+  <title>AI Safety Experiments: A dive into Constitutional AI</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked-smartypants/lib/index.umd.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked-highlight/lib/index.umd.js"></script>
@@ -56,13 +56,6 @@
       const {markedHighlight} = globalThis.markedHighlight;
       const markedCustomHeadingId = globalThis.markedCustomHeadingId;
 
-      console.log({
-        marked,
-        markedSmartypants,
-        markedHighlight,
-        markedCustomHeadingId
-      })
-
       marked.use(markedSmartypants.markedSmartypants());
       marked.use(
         markedHighlight({
@@ -80,6 +73,7 @@
       document.getElementById('markdown-content').innerHTML = marked.parse(markdown);
     } catch (error) {
       console.error('Error fetching the markdown file:', error);
+      document.getElementById('markdown-content').innerHTML = '<p>There was an error loading the markdown content. Please try again later.</p>';
     }
   }
 
