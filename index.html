@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My GitHub Pages Blog</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Marked.js CDN for parsing Markdown -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- Enable dark mode with TailwindCSS -->
+  <style>
+      html {
+          color-scheme: dark;
+      }
+
+      html.dark {
+          background-color: #1f2937;
+      }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+<!-- Main Container -->
+<div class="min-h-screen flex flex-col items-center justify-center">
+  <header class="w-full py-6 bg-gray-800 text-center">
+    <h1 class="text-4xl font-bold text-white">Welcome to My Blog</h1>
+    <p class="text-gray-400 mt-2">Sharing my thoughts and experiences</p>
+  </header>
+
+  <!-- Blog Content Section -->
+  <main class="w-full px-6 md:px-0 md:w-3/5 mt-10">
+    <article class="mb-10">
+      <div id="markdown-content" class="text-gray-300 leading-relaxed">
+        <!-- Markdown content will be injected here -->
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-6 bg-gray-800 text-center">
+    <p class="text-gray-500">© 2024 My GitHub Pages Blog. All rights reserved.</p>
+  </footer>
+</div>
+
+<script>
+  // Fetch and parse the Markdown file
+  async function loadMarkdown() {
+    try {
+      // Fetch the markdown file (assumed to be in the same directory as 'post.md')
+      const response = await fetch('post.md');
+      const markdown = await response.text();
+
+      // Convert Markdown to HTML
+      // Insert the HTML into the DOM
+      document.getElementById('markdown-content').innerHTML = marked.parse(markdown);
+    } catch (error) {
+      console.error('Error fetching the markdown file:', error);
+    }
+  }
+
+  // Load the Markdown on page load
+  window.onload = loadMarkdown;
+</script>
+
+</body>
+</html
