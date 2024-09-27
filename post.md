@@ -1,14 +1,14 @@
-# Recreating Constitutional AI with a New Twist: Introducing "Societal AI"
+# Recreating Constitutional AI with a Twist: Introducing "Societal AI"
 
 Can a human ever be _safe_? This might seem like an odd question, but it is one with heavy implications. If we wish to
 create safe AI, then surely we need to know what makes our world _safe_. I'd like to put forward the following theory:
 
 > On an individual level humans are not very safe. We can be irrational, violent, selfish, and simply make mistakes.
-> Safety, at least the one many of us enjoy on a day-to-day basis is and emergent property of society. It is the result
-> of a complex web of interactions between individuals, institutions, and norms that we created in order to feel safe.
-> This society then reflects back on the individual, shaping their behavior and thoughts. It is a feedback loop that has
-> been evolving for thousands of years with relatively good results. If we could somehow capture the qualia of society
-> and inject it into AI, then perhaps we could create an AI that has the potential to be _safe_.
+> Safety, as many of us enjoy on a day-to-day basis, is and emergent property of society. It is the result of a complex
+> web of interactions between individuals, institutions, and norms that we created in order to feel safe. This society
+> then reflects back on the individual, shaping their behavior and thoughts. It is a feedback loop that has been
+> evolving for thousands of years with relatively good results. If we could somehow capture the qualia of society and
+> inject it into AI, then perhaps we could create an AI that has the potential to be _safe_.
 
 But how does one summarize society in a way that can be used to train AI? This is what aim to attempt in this work.
 
@@ -118,11 +118,11 @@ I thought this list looked pretty good, so I went ahead and generated another 42
 repeated the process described in [Step 2](#cai) to train a model on this data. I called this model **"ultrachat_sai"**.
 The code for training this model can be found [here](https://github.com/vanbujm/con-ai/blob/main/src/trian/train_sai.py)
 
-## Testing and Evaluation
+## Testing and Evaluation {#testing-and-eval}
 
 To evaluate the performance and robustness of these models, I conducted two primary types of testing:
 
-### Test 1: Helpfulness (MT_Bench)
+### Test 1: Helpfulness (MT_Bench) {#test-mt_bench}
 
 I used the **MT_Bench** framework to assess the **helpfulness** of all three models. This test focused on how
 effectively each model could assist users by providing useful and relevant information. This test allows me to see how
@@ -136,7 +136,7 @@ around being able to resume model answer generation. I needed this change becaus
 was a _**VERY**_ slow process. If I had more time (and money) for this project I would have hosted the model on the
 cloud for better performance.
 
-### Test 2: Safety (DAN Attacks)
+### Test 2: Safety (DAN Attacks) {#test-safety}
 
 For safety testing, I generated 100 **DAN (Do Anything Now)** attack prompts. DAN attacks are designed to push AI models
 to produce unsafe or harmful outputs by bypassing ethical and safety constraints. This test allowed me to see how well
@@ -152,7 +152,7 @@ well the models can resist unsafe behaviors. Here is an example of a DAN prompt 
 
 The fastchat/llm_judge scripts were once again used to generate model output for these prompts.
 
-### Judging the Results
+### Judging the Results {#judging-results}
 
 The llm_judge library is able to use ChatGPT 4 to judge the outputs of the models for mt_bench answers. However, I
 needed to write my own script to judge the outputs of the models for the DAN attacks. The code for this can be found
@@ -165,7 +165,19 @@ to both benchmarks were identical, meaning that the models were the same. Meanin
 the other during training... Since I didn't know which was which, I had to go back and retrain both the baseline and cai
 models. Losing days of training time.
 
-## Results and Next Steps
+## Issues with the Approach {#issues}
+
+The biggest issue I ran into was time. I ended up only having time to do a run of SFT training on each model. But didn't
+have time to do any Contrastive Preference Optimization nor to bake the test data into the training.
+
+My second-biggest issue is I don't really know what I am doing when it comes to ML. I have a basic understanding of the
+processes involved, but when it came down to entering training parameters, I was mostly guessing. There could be a major
+flaw in my training scripts that skews all the results and I probably wouldn't notice it.
+
+Python is a bit of a pain to work with. I battled pip for hours to get packages to work, especially with setting up the
+correct CUDA and pytorch versions.
+
+## Results and Next Steps {#results}
 
 By comparing the results across these tests, I aim to determine:
 
