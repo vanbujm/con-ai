@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nunito-200 {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.fira-code-200 {
+    font-family: "Fira Code", monospace;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+}
+
+
+.hljs {
+    background-color: oklch(var(--b2));
+    border-radius: 5px;
+}
+
+.hljs-attr {
+    color: oklch(var(--in));
+}
+
+.hljs-punctuation {
+    color: oklch(var(--nc));
+}
+
+.hljs-string {
+    color: oklch(var(--s));
+}
+
+.prose pre code {
+    background-color: oklch(var(--b2));
+    border-radius: 5px;
+}

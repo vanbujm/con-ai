@@ -3,3 +3,4 @@ singleQuote: false
 tabWidth: 2
 quoteProps: "consistent"
 printWidth: 120
+proseWrap: always

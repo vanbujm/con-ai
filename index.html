@@ -1,59 +1,72 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" data-theme="forest">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>My GitHub Pages Blog</title>
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Marked.js CDN for parsing Markdown -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked-smartypants/lib/index.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked-highlight/lib/index.umd.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked-custom-heading-id/lib/index.umd.js"></script>
 
-  <!-- Enable dark mode with TailwindCSS -->
-  <style>
-      html {
-          color-scheme: dark;
-      }
 
-      html.dark {
-          background-color: #1f2937;
-      }
-  </style>
+  <link href="./output.css" rel="stylesheet">
+
 </head>
-<body class="bg-gray-900 text-gray-200">
+<body>
 
 <!-- Main Container -->
-<div class="min-h-screen flex flex-col items-center justify-center">
-  <header class="w-full py-6 bg-gray-800 text-center">
-    <h1 class="text-4xl font-bold text-white">Welcome to My Blog</h1>
-    <p class="text-gray-400 mt-2">Sharing my thoughts and experiences</p>
+<div class="min-h-screen flex flex-col items-center">
+  <header class="prose w-full py-6 text-center">
+    <h1 class="text-primary mb-1">AI Safety Experiments</h1>
+    <p class="mt-0">A dive into Constitutional AI</p>
   </header>
 
   <!-- Blog Content Section -->
-  <main class="w-full px-6 md:px-0 md:w-3/5 mt-10">
-    <article class="mb-10">
-      <div id="markdown-content" class="text-gray-300 leading-relaxed">
+  <main class="w-full px-6 md:px-0 md:w-2/5 mt-10 flex-1">
+    <article class="prose mb-10 w-full max-w-none prose-em:text-primary prose-blockquote:text-secondary prose-a:text-accent prose-strong:text-primary prose-code:not-prose" id="markdown-content">
         <!-- Markdown content will be injected here -->
-      </div>
     </article>
   </main>
-
-  <!-- Footer -->
-  <footer class="w-full py-6 bg-gray-800 text-center">
-    <p class="text-gray-500">© 2024 My GitHub Pages Blog. All rights reserved.</p>
-  </footer>
 </div>
 
-<script>
+<script type="module" >
+  import hljs from 'https://unpkg.com/@highlightjs/cdn-assets@11.10.0/es/highlight.min.js';
   // Fetch and parse the Markdown file
   async function loadMarkdown() {
     try {
       // Fetch the markdown file (assumed to be in the same directory as 'post.md')
       const response = await fetch('post.md');
       const markdown = await response.text();
+
+      const {markedHighlight} = globalThis.markedHighlight;
+      const markedCustomHeadingId = globalThis.markedCustomHeadingId;
+
+      console.log({
+        marked,
+        markedSmartypants,
+        markedHighlight,
+        markedCustomHeadingId
+      })
+
+      marked.use(markedSmartypants.markedSmartypants());
+      marked.use(
+        markedHighlight({
+          langPrefix: 'hljs language-',
+          highlight(code, lang, info) {
+            const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+            return hljs.highlight(code, { language }).value;
+          }
+        })
+      );
+      marked.use(markedCustomHeadingId());
 
       // Convert Markdown to HTML
       // Insert the HTML into the DOM
@@ -68,4 +81,4 @@
 </script>
 
 </body>
-</html
+</html>
