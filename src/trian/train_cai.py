@@ -141,4 +141,8 @@ trainer = SFTTrainer(
 
 trainer.train()
 
-trainer.save_model("./ultrachat_baseline")
+trainer.save_model("./ultrachat_cai")
+
+trainer.push_to_hub("vanbujm/ultrachat_cai")
+tokenizer.push_to_hub("vanbujm/ultrachat_cai")
+

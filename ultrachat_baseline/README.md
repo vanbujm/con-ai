@@ -1,6 +1,7 @@
 ---
 library_name: transformers
-tags: []
+tags:
+- unsloth
 ---
 
 # Model Card for Model ID
