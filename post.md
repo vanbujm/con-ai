@@ -180,5 +180,9 @@ potential future applications of **Societal AI** in various domains.
 
 **References:**
 
+- HuggingFace Constitutional AI Blog: [HuggingFace Blog](https://huggingface.co/blog/constitutional_ai)
 - Anthropic's Constitutional AI: [HuggingFace Blog](https://huggingface.co/blog/constitutional_ai)
 - Mistral-7B-Instruct-v0.1 Model: [HuggingFace](https://huggingface.co/mistral-7b-instruct-v0.1)
+- UltraChat_200k Dataset: [HuggingFace](https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k)
+- Ultrasloth Traing Blog by Imran Ullah: [Medium](https://medium.com/@imranullahds/openchat-3-5-a-deep-dive-into-sft-fine-tuning-with-unsloth-0d9eba710571)
+- FastChat MT_Bench: [FastChat](https://github.com/lm-sys/FastChat/tree/main/fastchat/llm_judge)
