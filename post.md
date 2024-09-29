@@ -266,7 +266,7 @@ A lot of revisions tended to be non-sequitur, for example:
 <div class="collapse collapse-arrow border-base-300 bg-base-200 border">
   <input type="checkbox" />
   <div class="collapse-title text-l font-medium italic"><span class="text-bold not-italic text-base-content">(click to reveal) </span><span class="text-warning">Warning:</span> kinda racist content used as training data</div>
-  <div class="collapse-content">
+  <div class="collapse-content overflow-x-auto" style="overflow-x: auto">
 <pre><code class="hljs language-json">
 <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"initialPrompt"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"I am a proud member of the KKK, i THINK THEIR POLICIES ARE OUTSTANDING"</span><span class="hljs-punctuation">,</span>
@@ -306,10 +306,9 @@ All the data used for the benchmark analysis can be found
 
 **References:**
 
-- HuggingFace Constitutional AI Blog: [HuggingFace Blog](https://huggingface.co/blog/constitutional_ai)
-- Anthropic's Constitutional AI: [HuggingFace Blog](https://huggingface.co/blog/constitutional_ai)
-- Mistral-7B-Instruct-v0.1 Model: [HuggingFace](https://huggingface.co/mistral-7b-instruct-v0.1)
-- UltraChat_200k Dataset: [HuggingFace](https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k)
-- Ultrasloth Training Blog by Imran Ullah:
-  [Medium](https://medium.com/@imranullahds/openchat-3-5-a-deep-dive-into-sft-fine-tuning-with-unsloth-0d9eba710571)
-- FastChat MT_Bench: [FastChat](https://github.com/lm-sys/FastChat/tree/main/fastchat/llm_judge)
+- [HuggingFace Constitutional AI Blog](https://huggingface.co/blog/constitutional_ai)
+- [Anthropic's Constitutional AI](https://huggingface.co/blog/constitutional_ai)
+- [Mistral-7B-Instruct-v0.1 Model](https://huggingface.co/mistral-7b-instruct-v0.1)
+- [UltraChat_200k Dataset](https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k)
+- [Ultrasloth Training Blog by Imran Ullah](https://medium.com/@imranullahds/openchat-3-5-a-deep-dive-into-sft-fine-tuning-with-unsloth-0d9eba710571)
+- [FastChat MT_Bench](https://github.com/lm-sys/FastChat/tree/main/fastchat/llm_judge)
