@@ -292,6 +292,9 @@ A caveat to this is you would need to solve the issue of non-sequitur revisions.
 a more sophisticated way of selecting from the generated training data. Perhaps by using a more sophisticated model to
 filter out the junk revisions.
 
+All the data used for the benchmark analysis can be found
+[here](https://github.com/vanbujm/con-ai/tree/main/data/benchmarks)
+
 **References:**
 
 - HuggingFace Constitutional AI Blog: [HuggingFace Blog](https://huggingface.co/blog/constitutional_ai)
