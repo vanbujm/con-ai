@@ -38,3 +38,7 @@
     background-color: oklch(var(--b2));
     border-radius: 5px;
 }
+
+.prose li::marker {
+    color: oklch(var(--p));
+}

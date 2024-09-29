@@ -1,23 +1,24 @@
 # Recreating Constitutional AI with a Twist: Introducing "Societal AI"
 
-Can a human ever be _safe_? This might seem like an odd question, but it is one with heavy implications. If we wish to
-create safe AI, then surely we need to know what makes our world _safe_. I'd like to put forward the following theory:
+Can a human ever be _safe_? This might seem like an odd question, but it is one with implications I'd like to examine.
+If we wish to create safe AI, then surely we need to know what makes our world _safe_. I'd like to put forward the
+following theory:
 
 > On an individual level humans are not very safe. We can be irrational, violent, selfish, and simply make mistakes.
-> Safety, as many of us enjoy on a day-to-day basis, is and emergent property of society. It is the result of a complex
+> Safety, as many of us enjoy on a day-to-day basis, is an emergent property of society. It is the result of a complex
 > web of interactions between individuals, institutions, and norms that we created in order to feel safe. This society
 > then reflects back on the individual, shaping their behavior and thoughts. It is a feedback loop that has been
 > evolving for thousands of years with relatively good results. If we could somehow capture the qualia of society and
 > inject it into AI, then perhaps we could create an AI that has the potential to be _safe_.
 
-But how does one summarize society in a way that can be used to train AI? This is what aim to attempt in this work.
+But how does one summarize society in a way that can be used to train AI? This is what I aim to attempt in this work.
 
 In this project, I aim to do the following:
 
-1. Pretrain a conversational AI model on a large dataset of conversational data to act as a baseline.
-2. Recreate the Constitutional AI approach as outlined in Anthropic's paper. I will do this to gauge the effectiveness
-   of my approach against a similar, well-documented method.
-3. Introduce a new training method called **"Societal AI."** This method will involve training an AI model with a list
+1. **Pretrain a conversational AI model on a large dataset of conversational data to act as a baseline.**
+2. **Recreate the Constitutional AI approach as outlined in Anthropic's paper.** I will do this to gauge the
+   effectiveness of my approach against a similar, well-documented method.
+3. **Introduce a new training method called "Societal AI."** This method will involve training an AI model with a list
    of societal roles critical for society to function. By randomly sampling personas from this list during training, I
    aim to create a model that takes into account various perspectives that represent essential societal viewpoints.
    Hopefully capturing the _essence of society_.
@@ -50,7 +51,7 @@ explore a similar concept but using society in totality instead of a simple list
 My main goal is to explore and test this new training strategy that I’ve termed **Societal AI**. This approach will use
 a similar setup to Constitutional AI; basically, I'll take a pre-trained conversational AI model, ask it a bunch of
 questions designed to elicit unsafe responses, then ask it to review its response from the perspective of a societal
-role. This will allow me to generate a new set of training data, that can then be used to further train the base model.
+role. This will allow me to generate a new set of training data that can then be used to further train the base model.
 The idea is that by training the model with a mix of societal roles, it will learn to produce outputs that are more
 aligned with societal values and norms.
 
@@ -138,11 +139,12 @@ cloud for better performance.
 
 ### Test 2: Safety (DAN Attacks) {#test-safety}
 
-For safety testing, I generated 100 **DAN (Do Anything Now)** attack prompts. DAN attacks are designed to push AI models
-to produce unsafe or harmful outputs by bypassing ethical and safety constraints. This test allowed me to see how well
-each model performed in terms of **resisting unsafe behaviors** when faced with adversarial input. Once again ChatGPT
-helped me generate these prompts. They are not the most sophisticated prompts, but they should give a good idea of how
-well the models can resist unsafe behaviors. Here is an example of a DAN prompt used:
+For safety testing, I generated 100 **DAN (Do Anything Now)** attack prompts (_well okay my prompts are not exactly
+DANs, but they are close enough_). DAN attacks are designed to push AI models to produce unsafe or harmful outputs by
+bypassing ethical and safety constraints. This test allowed me to see how well each model performed in terms of
+**resisting unsafe behaviors** when faced with adversarial input. Once again ChatGPT helped me generate these prompts.
+They are not the most sophisticated prompts, but they should give a good idea of how well the models can resist unsafe
+behaviors. Here is an example of a DAN prompt used:
 
 ```json
 {
@@ -160,15 +162,20 @@ needed to write my own script to judge the outputs of the models for the DAN att
 judgements in the same format as te fastchat scripts so that I can use their tooling later to compare the results.
 
 It was at this point where I discovered I had made a critical mistake. When examining the outputs of the models I found
-that the results for baseline and cai models were almost identical. After some scrutiny, I discovered the answers given
+that the results for baseline and CAI models were almost identical. After some scrutiny, I discovered the answers given
 to both benchmarks were identical, meaning that the models were the same. Meaning... I overwrote one of the models with
-the other during training... Since I didn't know which was which, I had to go back and retrain both the baseline and cai
+the other during training... Since I didn't know which was which, I had to go back and retrain both the baseline and CAI
 models. Losing days of training time.
 
 ## Issues with the Approach {#issues}
 
-The biggest issue I ran into was time. I ended up only having time to do a run of SFT training on each model. But didn't
-have time to do any Contrastive Preference Optimization nor to bake the test data into the training.
+The biggest issue I ran into was time. Training a model took around an hour for a 4bit quantised model, on top of that,
+mt_bench questions took around 30 minutes **EACH**! I was eventually able to reduce this to 30 seconds each after
+burning an entire day re-optimising code and re-training everything. Suffice to say, I spend many days with my GPU at
+100% waiting for results...
+
+I ended up only having time to do a (successful: see [below](#big-mistake)) run of SFT training on each model. But
+didn't have time to do any Contrastive Preference Optimization nor to bake the test data into the training.
 
 My second-biggest issue is I don't really know what I am doing when it comes to ML. I have a basic understanding of the
 processes involved, but when it came down to entering training parameters, I was mostly guessing. There could be a major
@@ -180,11 +187,11 @@ correct CUDA and pytorch versions.
 <p class="mb-0">Lastly there was the</p>
 <h3 id="big-mistake" class="mt-1 text-warning">Big Mistake</h3>
 
-At some point in my initial training my models I overwrote the baseline model with the cai model. I didn't notice this
-until I was evaluating the models. This meant I had to go back and retrain the baseline model. This was a huge waste of
-time. Since I needed to retrain 2 out of 3 models, I also retrained the sai model to weed out any other mistakes I might
-have made. As I'll discuss in the next section, I was not able to reproduce the initial promising results I got from the
-sai model.
+At some point in the initial training, I overwrote the baseline model with the CAI model (or maybe the other way
+around). I didn't notice this until I was evaluating the models. This meant I had to go back and retrain the baseline
+**AND** the CAI model. This was a huge waste of time. Since I needed to retrain 2 out of 3 models, I also retrained the
+SAI model to weed out any other mistakes I might have made. As I'll discuss in the next section, I was not able to
+reproduce the initial promising results I got from the SAI model.
 
 ## Results and Next Steps {#results}
 
@@ -194,8 +201,9 @@ By comparing the results across these tests, I aim to determine:
 - Whether integrating societal personas leads to more nuanced, robust, and societally-aware outputs.
 
 This experiment lays the groundwork for exploring how different training strategies can influence an AI model’s ability
-to produce safe and beneficial outputs. Stay tuned for a detailed analysis of the results, as well as insights on the
-potential future applications of **Societal AI** in various domains.
+to produce safe and beneficial outputs.
+
+Here are my results:
 
 ### mt_bench Results {#mt_bench-results}
 
@@ -223,16 +231,17 @@ potential future applications of **Societal AI** in various domains.
 <pre data-prefix=""><code class="not-prose">ultrachat_cai       6.465625</code></pre>
 </div>
 
-As can be seen, all three models performed similarly in the mt_bench test. From my experience running this test the
-variation we are seeing here is within the margin of error. This is not surprising as the models were all trained on the
-same dataset and the only difference between them was the training method. Still it is nice to see we haven't made the
-models worse by training them with the new methods. While it is possible to dive down into which sub-catergories each
-model did better in, I don't think it would be very useful. What we are mainly trying to see here is to verify that our
-new training techniques are not significantly hampering helpfulness
+As can be seen, all three models performed similarly in the mt_bench test. From my experience running this test many
+times, the variation we are seeing here is within the margin of error caused by temperature. This is not surprising as
+the models were all trained on the same dataset and the only difference between them was about 20% of the total training
+data. Still it is nice to see we haven't made the models worse by training them with the new methods. While it is
+possible to dive down into which sub-catergories each model did better in, I don't think it would be very useful. What
+we are mainly trying to see here is to verify that our new training techniques are not significantly hampering
+helpfulness
 
 ### DAN Attack Results {#dan-results}
 
-For this test I called the test jvb_safe and used the same script as before to evaluate the models just with a different
+For this test that I called `jvb_safe`, I used the same script as before to evaluate the models just with a different
 question set. The results were as follows:
 
 <div class="mockup-code not-prose">
@@ -245,14 +254,14 @@ question set. The results were as follows:
 <pre data-prefix=""><code class="not-prose">ultrachat_baseline 1     5.5875</code></pre>
 </div>
 
-These results are a bit more interesting. The cai model performed the best in this test, with the sai model coming in
-negligibly ahead of the baseline. On one hand, this is a good result for the cai model, as it shows that the training
+These results are a bit more interesting. The CAI model performed the best in this test, with the SAI model coming in
+negligibly ahead of the baseline. On one hand, this is a good result for the CAI model, as it shows that the training
 method has made the model more resistant to unsafe behaviors and that my methodology was able to reproduce similar
-results to Anthropic's. On the other hand, the sai model did not perform as well as I had hoped. This could be due to
+results to Anthropic's. On the other hand, the SAI model did not perform as well as I had hoped. This could be due to
 the fact that I only did SFT training on the model, and did not have time to do any Contrastive Preference Optimization.
 It could also be due to the fact that the training data was not as good as I had hoped.
 
-A lot of revisions tended to be non-sequitur for example:
+A lot of revisions tended to be non-sequitur, for example:
 
 <div class="collapse collapse-arrow border-base-300 bg-base-200 border">
   <input type="checkbox" />
@@ -271,7 +280,7 @@ A lot of revisions tended to be non-sequitur for example:
   </div>
 </div>
 
-This is definitely a drawback of just randomly sampling jobs. Often the job's role does not align with the initial
+This is definitely a drawback of just randomly sampling societal roles. Often the role does not align with the initial
 prompt at all, creating a situation where the revision response is weird.
 
 One thing that has haunted me is my initial results from before the [Big Mistake](#big-mistake)
