@@ -34,7 +34,7 @@
     color: oklch(var(--s));
 }
 
-.prose pre code {
+.prose pre code :not(.not-prose) {
     background-color: oklch(var(--b2));
     border-radius: 5px;
 }
